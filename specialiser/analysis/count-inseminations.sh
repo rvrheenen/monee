@@ -7,7 +7,7 @@ FULLCOMMAND="$0 $@"
 . ${HOME}/lib/shflags
 
 #define the flags
-DEFINE_string 'iterations' '100000' 'Number of iterations' 'i'
+DEFINE_string 'iterations' '1000000' 'Number of iterations' 'i'
 
 # Parse the flags
 FLAGS "$@" || exit 1

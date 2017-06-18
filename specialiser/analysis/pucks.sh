@@ -13,6 +13,7 @@ echo "Summarising..."
 # Summarise puck counts
 awk -v skip=1 -v prepend=true -f ${SCRIPTPATH}/moments-per-line.awk $RESULTS.0 > ${RESULTS}.0.stats
 awk -v skip=1 -v prepend=true -f ${SCRIPTPATH}/moments-per-line.awk $RESULTS.1 > ${RESULTS}.1.stats
+awk -v skip=1 -v prepend=true -f ${SCRIPTPATH}/moments-per-line.awk $RESULTS.2 > ${RESULTS}.2.stats
 
 paste ${RESULTS}.0 ${RESULTS}.1 > ${RESULTS}
 

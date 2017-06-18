@@ -26,6 +26,6 @@ rm -f ${BASEDIR}/logs/finished.progress
 touch ${BASEDIR}/logs/running.progress
 
 # Run the above determined jobs on the available cores using parallel:
-parallel --progress --eta --bar --joblog ${BASEDIR}/logs/parallel_job_log_`date "+%Y%m%d.%Hh%Mm%Ss"` -j ${NUM_CORES} ::: "${simulations[@]}" ::: `seq 15`
+parallel --progress --eta --bar --joblog ${BASEDIR}/logs/parallel_job_log_`date "+%Y%m%d.%Hh%Mm%Ss"` -j ${NUM_CORES} ::: "${simulations[@]}" ::: `seq 2`
 
 mv ${BASEDIR}/logs/running.progress ${BASEDIR}/logs/finished.progress
