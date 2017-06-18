@@ -170,7 +170,6 @@ if [ $? -ne 0 ]
 then
     exit $?
 fi
-
  
 ### Run RoboRobo!
 cp ${CONFFILE} "${BASEDIR}"/logs
@@ -178,16 +177,18 @@ BINFILE="${BASEDIR}"/roborobo
 
 $BINFILE -l $CONFFILE > $LOGFILE 2> $ERRORLOGFILE 
 
-for log in "${BASEDIR}"/logs/*${RUNID}*.log; do
+for log in "${BASEDIR}"/logs/*${RUNID}*.log; do # zip the log files
    bzip2 $log
 done
 
-bzip2 "${LOGFILE}"
+bzip2 "${LOGFILE}" # zip the main log file
 
-rm ${CONFFILE}
+rm ${CONFFILE} # remove the temporary conf file from the config folder
 
+# rename the properties dump file to the correct convention:
 find ${BASEDIR}/logs -name "properties_`echo $RUNID| tr '.' '-' | cut -d "-" -f 1-2`*ms_${FLAGS_seed}.txt" -exec mv '{}' ${BASEDIR}/logs/${RUNID}.properties.dump \;
 
+# divide the log files into relevant sub-folders
 if [ ${FLAGS_useSpecialiser} -eq ${FLAGS_TRUE} ]; then
   mkdir -p ${BASEDIR}/logs/specialised_sm${FLAGS_stealMargin}_sa${FLAGS_stealAmount}_lc${FLAGS_specialiserLifeCap}
   mv ${BASEDIR}/logs/${RUNID}* ${BASEDIR}/logs/specialised_sm${FLAGS_stealMargin}_sa${FLAGS_stealAmount}_lc${FLAGS_specialiserLifeCap}
