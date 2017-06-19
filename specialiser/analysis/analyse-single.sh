@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 FULLCOMMAND="$0 $@"
 . ${HOME}/lib/shflags

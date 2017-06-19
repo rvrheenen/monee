@@ -1,10 +1,10 @@
-SCRIPT=`realpath -s $0`
-SCRIPTPATH=`dirname $SCRIPT`
-BASEDIR=$SCRIPTPATH/..
+DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
+SCRIPT_DIR=`dirname "$DIR"`
+BASEDIR=$SCRIPT_DIR/..
 
 NUM_CORES=`nproc --all` # get number of cores
 
-base_params="${SCRIPTPATH}/monee.sh --seed 0 --basedir ${BASEDIR} --templatedir ${BASEDIR}/template/ --iterations 1000000"
+base_params="${SCRIPT_DIR}/monee.sh --seed 0 --basedir ${BASEDIR} --templatedir ${BASEDIR}/template/ --iterations 1000000"
 exp_params="--useSpecialiser true --spawnProtection true --spawnProtectDuration 120"
 
 simulations[0]="${base_params}" #standard run
