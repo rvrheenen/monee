@@ -33,7 +33,7 @@ DEFINE_boolean 'spawnProtection' true 'If true, bots cannot get life stolen from
 DEFINE_boolean 'stealFixed' true 'If true, steal a fixed amount, otherwise it is percentage'
 DEFINE_float 'spawnProtectDuration' '120' 'How long the spawn protection lasts'
 DEFINE_float 'stealAmount' '40' 'Amount stolen when life is stolen. Depending on stealFixed it is percentage or fixed amount of life.'
-DEFINE_float 'specialiserLifeCap' '3000' 'Life cap for stealing life, must be higher than maxLifeTime, or 0 for unlimited.'
+DEFINE_float 'specialiserLifeCap' '2000' 'Life cap for stealing life, must be higher than maxLifeTime, or 0 for unlimited.'
 DEFINE_float 'stealMargin' '20' 'How much % a robot has to be "better" to be allowed to steal from another robot.'
 
 # Parse the flags

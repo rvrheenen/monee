@@ -18,8 +18,8 @@ BINSIZE=1000
 ITERATIONS=${FLAGS_iterations}
 
 RESULTS=pucks-collected
-DIR=`readlink -fn $0`
-BASEDIR=`dirname $DIR`
+DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
+SCRIPT_DIR=`dirname "$DIR"`
 
 # Generate timestep column 
 seq 0 $BINSIZE $ITERATIONS > ${RESULTS}.0

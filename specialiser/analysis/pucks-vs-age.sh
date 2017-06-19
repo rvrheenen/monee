@@ -11,19 +11,21 @@ FULLCOMMAND="$0 $@"
 . ${HOME}/lib/shflags
 
 BASEDIR=$HOME/monee/results
-SCRIPT=`realpath -s $0`
+DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
+SCRIPT_DIR=`dirname "$DIR"`
 
-SCRIPTPATH=`dirname $SCRIPT`
+awk -v col=3 -f ${SCRIPT_DIR}/pucks-vs-age.awk *.pressure-stats | sort -n -k 1 | awk -v skip=1 -v prepend=true -f ${SCRIPT_DIR}/moments-per-line.awk > pucks-vs-age.0
+awk -v col=4 -f ${SCRIPT_DIR}/pucks-vs-age.awk *.pressure-stats | sort -n -k 1 | awk -v skip=1 -v prepend=true -f ${SCRIPT_DIR}/moments-per-line.awk > pucks-vs-age.1
 
-for i in $@
-do
-  pushd $i
-  (
-    awk -v col=3 -f ${SCRIPTPATH}/pucks-vs-age.awk *.pressure-stats | sort -n -k 1 | awk -v skip=1 -v prepend=true -f ${SCRIPTPATH}/moments-per-line.awk > pucks-vs-age.0
-    awk -v col=4 -f ${SCRIPTPATH}/pucks-vs-age.awk *.pressure-stats | sort -n -k 1 | awk -v skip=1 -v prepend=true -f ${SCRIPTPATH}/moments-per-line.awk > pucks-vs-age.1
-  )&
+# for i in $@
+# do
+#   pushd $i
+#   (
+#     awk -v col=3 -f ${SCRIPT_DIR}/pucks-vs-age.awk *.pressure-stats | sort -n -k 1 | awk -v skip=1 -v prepend=true -f ${SCRIPT_DIR}/awk/moments-per-line.awk > pucks-vs-age.0
+#     awk -v col=4 -f ${SCRIPT_DIR}/pucks-vs-age.awk *.pressure-stats | sort -n -k 1 | awk -v skip=1 -v prepend=true -f ${SCRIPT_DIR}/awk/moments-per-line.awk > pucks-vs-age.1
+#   )&
  	
-  popd
-done
+#   popd
+# done
 
-wait
+# wait

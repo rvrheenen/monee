@@ -7,7 +7,7 @@ set xlabel "green puck ratio"
 set ylabel "count"
 set yrange [ 0.00000 : 15.0000 ]
 
-data="< awk '$1==399000{print $0}' pucks-collected-ratio.0 | gawk -f ~/projects/awk/transpose.awk | tail -n 64 | gawk -f ~/projects/awk/histogram.awk 0 1 50"
+data="< awk '$1==399000{print $0}' pucks-collected-ratio.0 | gawk -f ../../specialiser/analysis/awk/transpose.awk | tail -n 64 | gawk -f ../../specialiser/analysis/awk/histogram.awk 0 1 50"
 
 # Following line for regular histogram, lines below that fit and plot a normal distribution
 # plot data w impulse lw 4 notitle

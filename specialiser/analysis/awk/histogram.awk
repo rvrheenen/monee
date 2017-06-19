@@ -1,7 +1,12 @@
+#!/opt/local/bin/gawk
+#
+# $Id: $
+# 
 # Bin data for a histogram
-# Modifying Tara Murphy's code
+# Based on Tara Murphy's code
 # usage: for data values between 0 and 10, with 5 bins
-# gawk -f histbin.awk 0 10 5 data.out data.in
+# gawk -f histogram.awk 0 10 5 data.in
+# 
 
 BEGIN { 
   m = ARGV[1]      # minimum value of x axis
@@ -10,15 +15,9 @@ BEGIN {
   ARGV[2] = ""
   b = ARGV[3]      # number of bins
   ARGV[3] = ""
-  file = ARGV[4]   # output file for plotting
-  ARGV[4] = ""
 
   w = (M-m)/b      # width of each bin
   
-  print "number of bins = "b
-  print "width of bins  = "w 
-  print
-
   # set up arrays
   for (i = 1 ; i <= b; ++i) {
     n[i] = m+(i*w)        # upper bound of bin
@@ -28,27 +27,25 @@ BEGIN {
 }
 
 { 
-  # bins the data
-  for (i = 1; i <= b; ++i)
-    if ($1 <= n[i]) {
-         ++f[i]
-         break        
-    } 
+   	for (i = 1; i <= b; ++i)
+     {	
+       if ($1 <= n[i]) {
+            ++f[i]
+            break
+       }        
+     }
 }
 
 END {
-  # print results to screen
-  # and to a file for plotting
-  print "bin(centre) = freq"
-
+  # print results 
   for (i = 1; i <= b; ++i) {
     if (f[i] > 0) {
-      print "bin("c[i]")", "=", f[i]
-      print c[i], f[i] > file
+      print c[i], f[i]
     }
     else {
-      print "bin("c[i]")", "=", 0
-      print c[i], 0 > file
+
+      print c[i], 0
     }
   }
 }
+

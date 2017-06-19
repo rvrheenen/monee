@@ -1,15 +1,11 @@
 #!/bin/bash
 
-SCRIPT=`realpath -s $0`
-
-SCRIPTPATH=`dirname $SCRIPT`
-
-DIR=`readlink -fn $0`
-BASEDIR=`dirname $DIR`
+DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
+SCRIPT_DIR=`dirname "$DIR"`
 
 for run in  *.pressure-stats
 do
-	base=`basename $run .pressure-stats`
+	base=`basename "$run"`
 	awk 'BEGIN{stepsize=5000} \
 		{i = int($1/stepsize); \
 		 if (i in ages) \
@@ -21,7 +17,7 @@ do
 		{print i*stepsize, ages[i]}}' $run | \
 	awk '{if (NF > 3) print $0}' | \
 	sort -n -k 1 | \
-	gawk -f ${SCRIPTPATH}/moments-per-line.awk -v skip=1 -v prepend=true > ${base}.ages.stats
+	gawk -f ${SCRIPT_DIR}/moments-per-line.awk -v skip=1 -v prepend=true > "${base}.ages.stats"
 
 done
 
@@ -36,4 +32,4 @@ awk 'BEGIN{stepsize=5000} \
 	{print i*stepsize, ages[i]}}' *.pressure-stats | \
 awk '{if (NF > 3) print $0}' | \
 sort -n -k 1 | \
-gawk -f ${SCRIPTPATH}/moments-per-line.awk -v skip=1 -v prepend=true > ages.stats
+gawk -f ${SCRIPT_DIR}/moments-per-line.awk -v skip=1 -v prepend=true > ages.stats

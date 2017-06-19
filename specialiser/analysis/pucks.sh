@@ -5,8 +5,8 @@ SCRIPT=`realpath -s $0`
 SCRIPTPATH=`dirname $SCRIPT`
 
 RESULTS=pucks-collected
-DIR=`readlink -fn $0`
-BASEDIR=`dirname $DIR`
+DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
+SCRIPT_DIR=`dirname "$DIR"`
 
 echo "Summarising..."
 
