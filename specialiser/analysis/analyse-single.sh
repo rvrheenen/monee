@@ -36,7 +36,7 @@ bash "${SCRIPT_DIR}/pucks-vs-age.sh"
 # echo calc_ratios
 # bash ${SCRIPT_DIR}/calc_ratios.sh --iterations ${FLAGS_iterations}
 
-bash "${SCRIPT_DIR}/count-inseminations.sh --iterations ${FLAGS_iterations}"
+bash "${SCRIPT_DIR}/count-inseminations.sh" --iterations ${FLAGS_iterations}
 
 echo plot plot-pucks-ratio
 gnuplot "${SCRIPT_DIR}/plot-pucks-ratio"
