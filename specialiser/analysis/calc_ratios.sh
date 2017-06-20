@@ -1,7 +1,10 @@
 #!/bin/bash
 
+DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
+SCRIPT_DIR=`dirname "$DIR"`
+
 FULLCOMMAND="$0 $@"
-. ${HOME}/lib/shflags
+. ${SCRIPT_DIR}/../lib/shflags
 
 #define the flags
 DEFINE_string 'iterations' '1000000' 'Number of iterations' 'i'

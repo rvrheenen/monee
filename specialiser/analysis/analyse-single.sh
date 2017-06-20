@@ -1,7 +1,9 @@
 #!/bin/bash
+DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
+SCRIPT_DIR=`dirname "$DIR"`
 
 FULLCOMMAND="$0 $@"
-. ${HOME}/lib/shflags
+. ${SCRIPT_DIR}/../lib/shflags
 
 #define the flags
 DEFINE_string 'iterations' '1000000' 'Number of iterations' 'i'
@@ -10,10 +12,6 @@ DEFINE_string 'iterations' '1000000' 'Number of iterations' 'i'
 FLAGS "$@" || exit 1
 eval set -- "${FLAGS_ARGV}"
 
-#DIR=`readlink -fn $0`
-DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
-SCRIPT_DIR=`dirname "$DIR"`
-# SCRIPT_DIR=`dirname "$(echo `readlink -fn $0` | sed 's/ /\\ /g')"`
 
 echo counts
 bash "${SCRIPT_DIR}/counts.sh" --iterations ${FLAGS_iterations}

@@ -1,11 +1,10 @@
 #!/bin/bash
 
-SCRIPT=`realpath -s $0`
-
-SCRIPTPATH=`dirname $SCRIPT`
+DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
+SCRIPT_DIR=`dirname "$DIR"`
 
 FULLCOMMAND="$0 $@"
-. ${HOME}/lib/shflags
+. ${SCRIPT_DIR}/../lib/shflags
 
 #define the flags
 DEFINE_string 'iterations' '1000000' 'Number of iterations' 'i'
@@ -18,8 +17,6 @@ BINSIZE=1000
 ITERATIONS=${FLAGS_iterations}
 
 RESULTS=pucks-collected
-DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
-SCRIPT_DIR=`dirname "$DIR"`
 
 # Generate timestep column 
 seq 0 $BINSIZE $ITERATIONS > ${RESULTS}.0
