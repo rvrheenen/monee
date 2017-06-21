@@ -2,6 +2,13 @@
 DIR="$(echo `readlink -fn $0` | sed 's/ /\\ /g')"
 SCRIPT_DIR=`dirname "$DIR"`
 
+
+if [[ `pwd` != *"logs"* ]];then
+    echo "are you in a logs (sub) folder?"
+    exit 1
+fi
+
+
 FULLCOMMAND="$0 $@"
 . ${SCRIPT_DIR}/../lib/shflags
 

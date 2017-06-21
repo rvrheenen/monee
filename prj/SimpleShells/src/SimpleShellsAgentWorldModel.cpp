@@ -120,11 +120,21 @@ void SimpleShellsAgentWorldModel::stealLife(RobotAgentWorldModel* other_wm) {
 		}
 
 		if (calcScoreFrom_wm(this) * (1 + _stealMargin/100) > calcScoreFrom_wm(other_wm)) { // if I am better
+			// int tmpLife = _lifetime[PHASE_GATHERING];
+
 			_lifetime[PHASE_GATHERING] += std::min(otherWm->_lifetime[PHASE_GATHERING] - 1, _stealAmount);
 			
+			// will output in format: [lifestolen] iterations thisId thisScore otherId otherScore lifeCap amountStolen amountAfter
+			//std::cout << "[lifesteal]"     << ' ' << this->_world->getIterations() << ' ';
+			//std::cout << this->_agentId    << ' ' << calcScoreFrom_wm(this) << ' '; 
+			//std::cout << otherWm->_agentId << ' ' << calcScoreFrom_wm(other_wm) << ' ' << _specialiserLifeCap << ' ';
+
+
 			if (_specialiserLifeCap > 0 ){
-				_lifetime[PHASE_GATHERING] = std::max(_lifetime[PHASE_GATHERING], _specialiserLifeCap);
+				_lifetime[PHASE_GATHERING] = std::min(_lifetime[PHASE_GATHERING], _specialiserLifeCap);
 			}
+
+			//std::cout << _lifetime[PHASE_GATHERING]  - tmpLife << ' ' << _lifetime[PHASE_GATHERING] << std::endl;
 
 		} else if (calcScoreFrom_wm(this) < calcScoreFrom_wm(other_wm) * (1 + _stealMargin/100) ){ // else if the other is better
 			_lifetime[PHASE_GATHERING] -= std::min(_lifetime[PHASE_GATHERING] - 1, _stealAmount);			
