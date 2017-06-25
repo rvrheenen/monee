@@ -188,11 +188,20 @@ rm ${CONFFILE} # remove the temporary conf file from the config folder
 # rename the properties dump file to the correct convention:
 find ${BASEDIR}/logs -name "properties_`echo $RUNID| tr '.' '-' | cut -d "-" -f 1-2`*ms_${FLAGS_seed}.txt" -exec mv '{}' ${BASEDIR}/logs/${RUNID}.properties.dump \;
 
+PASSPORT="/media/rick/Passport"
+# PASSPORT="/media/rick/Passport"
+
 # divide the log files into relevant sub-folders
 if [ ${FLAGS_useSpecialiser} -eq ${FLAGS_TRUE} ]; then
   mkdir -p ${BASEDIR}/logs/specialised_sm${FLAGS_stealMargin}_sa${FLAGS_stealAmount}_lc${FLAGS_specialiserLifeCap}
+  # mkdir -p ${PASSPORT}/logs/specialised_sm${FLAGS_stealMargin}_sa${FLAGS_stealAmount}_lc${FLAGS_specialiserLifeCap}
+  
   mv ${BASEDIR}/logs/${RUNID}* ${BASEDIR}/logs/specialised_sm${FLAGS_stealMargin}_sa${FLAGS_stealAmount}_lc${FLAGS_specialiserLifeCap}
+  # mv ${BASEDIR}/logs/${RUNID}* ${PASSPORT}/logs/specialised_sm${FLAGS_stealMargin}_sa${FLAGS_stealAmount}_lc${FLAGS_specialiserLifeCap}
 else
   mkdir -p ${BASEDIR}/logs/standard
+  # mkdir -p ${PASSPORT}/logs/standard
+  
   mv ${BASEDIR}/logs/${RUNID}* ${BASEDIR}/logs/standard
+  # mv ${BASEDIR}/logs/${RUNID}* ${PASSPORT}/logs/standard
 fi
